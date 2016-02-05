@@ -1,53 +1,48 @@
-function Image(call,url) {
+var newProducts = [];
+function Product(call,url) {
   this.call = call;
-  this.url = url;
+  this.url = "media/images/png/" + call + ".png";
   this.chosen = 0;
+  this.viewed = 0;
 };
-var bag = new Image("bag","media/images/png/bag.png");
-var banana = new Image("banana","media/images/png/banana.png");
-var boots = new Image("boots","media/images/png/boots.png");
-var chair = new Image("chair","media/images/png/chair.png");
-var cthulhu = new Image("cthulhu","media/images/png/cthulhu.png");
-var dragon = new Image("dragon","media/images/png/dragon.png");
-var pen = new Image("pen","media/images/png/pen.png");
-var scissors = new Image("scissors","media/images/png/scissors.png");
-var shark = new Image("shark","media/images/png/shark.png");
-var sweep = new Image("sweep","media/images/png/sweep.png");
-var unicorn = new Image("unicorn","media/images/png/unicorn.png");
-var usb = new Image("usb","media/images/png/usb.png");
-var waterCan = new Image("waterCan","media/images/png/water_can.png");
-var wine = new Image("wine","media/images/png/wine.png");
-var images = [bag, banana, boots, chair, cthulhu, dragon, pen, scissors, shark, sweep, unicorn, usb, waterCan, wine];
-
-
-var images1El = document.getElementById("pic1");
-var images2El = document.getElementById("pic2");
-var images3El = document.getElementById("pic3");
-var imageEl = [images1El,images2El,images3El];
-var pickedPics = [];
-
-randomNum = function(min, max) {
-  return Math.random() * (max - min) + 1;
-};
-randomPic = function() {
-  var randomPicNum = Math.floor(randomNum(1,images.length));
-  images[randomPicNum].chosen++;
-  pickedPics.push(randomPicNum);
-  console.log(pickedPics);
-    if (randomPicNum == pickedPics) {
-      randomPic();
-    } else {
-        randomImage = images[randomPicNum].url;
-      }
-};
-render = function() {
-  for (pics in imageEl) {
-    var imgEl = document.createElement("img");
-    randomPic();
-    imgEl.src = randomImage;
-    console.log(randomImage);
-    imageEl[pics].appendChild(imgEl);
+var images = ["bag", "banana", "boots", "chair", "cthulhu", "dragon", "pen", "scissors", "shark", "sweep", "unicorn", "usb", "water_can", "wine"];
+populate = function() {
+  for (calls in images) {
+    newProducts.push(new Product(images[calls],this.call));
   }
 };
-render();
-// pickedPics = [];
+randomNum = function(min, max) {
+  return Math.floor(Math.random() * (images.length - 1) + 1);
+};
+populate();
+createThree = function() {
+  var used = [];
+  newProd = [];
+  picEl1 = document.getElementById("pic1");
+  picEl2 = document.getElementById("pic2");
+  picEl3 = document.getElementById("pic3");
+  for (var i = 0; i < 3; i++) {
+    randomProd = newProducts[randomNum()];
+    used.push(randomProd);
+    while (used.indexOf(randomProd) == -1) {
+    }
+    newProd.push(randomProd)
+    used.push(randomProd);
+  }
+  picEl1.src = newProd[0].url;
+  picEl2.src = newProd[1].url;
+  picEl3.src = newProd[2].url;
+};
+createThree();
+var selectImage1 = document.getElementById("pic1");
+var selectImage2 = document.getElementById("pic2");
+var selectImage3 = document.getElementById("pic3");
+selectImage1.addEventListener("click", function(){
+  createThree();
+});
+selectImage2.addEventListener("click", function(){
+  createThree();
+});
+selectImage3.addEventListener("click", function(){
+  createThree();
+});

@@ -1,9 +1,9 @@
 var newProducts = [];
 var clickNum = 0;
 var images = ["bag", "banana", "boots", "chair", "cthulhu", "dragon", "pen", "scissors", "shark", "sweep", "unicorn", "usb", "water_can", "wine"];
-var picEl1 = document.getElementById("pic1");
-var picEl2 = document.getElementById("pic2");
-var picEl3 = document.getElementById("pic3");
+// var picEl1 = document.getElementById("pic1");
+// var picEl2 = document.getElementById("pic2");
+// var picEl3 = document.getElementById("pic3");
 
 function Product(call,url) {
   this.call = call;
@@ -22,43 +22,64 @@ randomNum = function(min, max) {
   return Math.floor(Math.random() * (images.length - 1) + 1);
 };
 
-tracker = function() {
-  populate();
-  createThree = function() {
-    clickNum++;
-    console.log(clickNum);
-    this[randomNum].viewed++;
-    console.log(this[randomNum].viewed);
-    used = [];
-    notUsed = [];
-    newProd = [];
-      for (var i = 0; i < 3; i++) {
-        newProd.push(newProducts[randomNum()]);
-        // TODO: view counter not working
-        // console.log(newProd);
-          // while (used.includes(newProd) === false) {
-          //   used.push(newProd);
-          //   console.log("FAIL");
-      // }
-    }
-    picEl1.name = newProd[0].call;
-    picEl2.name = newProd[1].call;
-    picEl3.name = newProd[2].call;
-    picEl1.src = newProd[0].url;
-    picEl2.src = newProd[1].url;
-    picEl3.src = newProd[2].url;
-    createListeners();
+populate();
+
+// createListeners();
+// removeListeners();
+
+var newProd = [];
+var tracker = function() {
+  for (var i = 0; i < 3; i++) {
+    newProd.push(newProducts[randomNum()])
   }
-  createThree();
-  // removeListeners();
 };
+var idx1 = 0;
+var idx2 = 0;
+var idx3 = 0;
+
+function getRandomImage() {
+  idx1 = Math.floor(Math.random()*newProducts.length);
+  img1 = newProducts[idx1];
+  idx2 = idx1;
+  idx3 = idx1;
+  while (idx3 === idx2 || idx2 === idx1 || idx3 === idx1) {
+    idx2 = Math.floor(Math.random()*newProducts.length);
+    idx3 = Math.floor(Math.random()*newProducts.length);
+  }
+  img2 = newProducts[idx2];
+  img3 = newProducts[idx3];
+  document.getElementById('pic1').setAttribute('src', img1.url);
+  document.getElementById('pic2').setAttribute('src', img2.url);
+  document.getElementById('pic3').setAttribute('src', img3.url);
+}
+
+
+// picEl1.src = newProd[0].url;
+// picEl2.src = newProd[1].url;
+// picEl3.src = newProd[2].url;
+// // }
+
+// tracker = function() {
+//  for (var i = 0; i < 15; i++) {
+//     createThree = function() {
+//       clickNum++;
+//       console.log(clickNum);
+//       used = [];
+//       notUsed = [];
+//         for (var i = 0; i < 3; i++) {
+//           newProd.push(newProducts[randomNum()]);
+//       }
+//     createThree();
+//   }
+// };
+
 createListeners = function() {
-  picEl1.addEventListener("click", createThree);
-  picEl2.addEventListener("click", createThree);
-  picEl3.addEventListener("click", createThree);
+  picEl1.addEventListener("click", tracker);
+  picEl2.addEventListener("click", tracker);
+  picEl3.addEventListener("click", tracker);
 };
 removeListeners = function() {
-  picEl1.removeEventListener("click", createThree);
-  picEl2.removeEventListener("click", createThree);
-  picEl3.removeEventListener("click", createThree);
+  picEl1.removeEventListener("click", tracker);
+  picEl2.removeEventListener("click", tracker);
+  picEl3.removeEventListener("click", tracker);
 };

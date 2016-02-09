@@ -38,6 +38,7 @@ function getRandomImage() {
 };
 
 function clickFocus() {
+  document.getElementById("results").style.visibility = "hidden";
   document.getElementById("pic1").addEventListener("click", function(){
     var choice = event.target.id;
     console.log(choice);
@@ -81,8 +82,9 @@ function clickFocus() {
       console.log(newProducts[idx3].chosen);
       clickNum++;
       console.log(clickNum + " CN");
-      if (clickNum === 15) {
+      if (clickNum >= 15) {
         gameOver = true;
+        document.getElementById("results").style.visibility = "visible";
       }
       if (!gameOver) {
         getRandomImage();
@@ -93,8 +95,6 @@ function clickFocus() {
     getRandomImage();
   }
 };
-// TODO:
-// TODO: make stop counting after 15
 if (gameOver === true) {
   removeListeners();
 }
@@ -102,6 +102,5 @@ removeListeners = function() {
   document.getElementById("pic1").removeEventListener("click", event, true);
   document.getElementById("pic2").removeEventListener("click", event, true);
   document.getElementById("pic3").removeEventListener("click", event, true);
-}
-
+  };
 clickFocus();

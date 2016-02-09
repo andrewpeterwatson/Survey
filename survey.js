@@ -9,7 +9,6 @@ function Product(call,url) {
   this.call = call;
   this.url = "media/images/png/" + call + ".png";
   this.chosen = 0;
-  this.viewed = 0;
 };
 populate = function() {
   for (calls in images) {
@@ -20,9 +19,9 @@ populate();
 var idx1 = 0;
 var idx2 = 0;
 var idx3 = 0;
+var gameOver = false;
+
 function getRandomImage() {
-  console.log(clickNum);
-  clickNum++;
   idx1 = Math.floor(Math.random() * newProducts.length);
   img1 = newProducts[idx1];
   idx2 = idx1;
@@ -37,16 +36,7 @@ function getRandomImage() {
   picEl2.setAttribute('src', img2.url);
   picEl3.setAttribute('src', img3.url);
 };
-// createListeners = function() {
-//   picEl1.addEventListener("click", getRandomImage);
-//   picEl2.addEventListener("click", getRandomImage);
-//   picEl3.addEventListener("click", getRandomImage);
-// };
-removeListeners = function() {
-  picEl1.removeEventListener("click", getRandomImage);
-  picEl2.removeEventListener("click", getRandomImage);
-  picEl3.removeEventListener("click", getRandomImage);
-};
+
 function clickFocus() {
   document.getElementById("pic1").addEventListener("click", function(){
     var choice = event.target.id;
@@ -55,6 +45,14 @@ function clickFocus() {
       var img = document.getElementById("pic1").getAttribute('src');
       newProducts[idx1].chosen += 1;
       console.log(newProducts[idx1].chosen);
+      clickNum++;
+      console.log(clickNum + " CN");
+      if (clickNum === 15) {
+        gameOver = true;
+      }
+      if (!gameOver) {
+        getRandomImage();
+      }
     }
   });
   document.getElementById("pic2").addEventListener("click", function(){
@@ -64,6 +62,14 @@ function clickFocus() {
       var img = document.getElementById("pic2").getAttribute('src');
       newProducts[idx2].chosen += 1;
       console.log(newProducts[idx2].chosen);
+      clickNum++;
+      console.log(clickNum + " CN");
+      if (clickNum === 15) {
+        gameOver = true;
+      }
+      if (!gameOver) {
+        getRandomImage();
+      }
     }
   });
   document.getElementById("pic3").addEventListener("click", function(){
@@ -73,6 +79,27 @@ function clickFocus() {
       var img = document.getElementById("pic3").getAttribute('src');
       newProducts[idx3].chosen += 1;
       console.log(newProducts[idx3].chosen);
+      clickNum++;
+      console.log(clickNum + " CN");
+      if (clickNum === 15) {
+        gameOver = true;
+      }
+      if (!gameOver) {
+        getRandomImage();
+      }
     }
   });
+  if (!gameOver) {
+    getRandomImage();
+  }
 };
+// TODO:
+// TODO: make stop counting after 15
+if (gameOver === true) {
+  removeListeners();
+}
+removeListeners = function() {
+  document.getElementById("pic1").removeEventListener("click", event, true);
+  document.getElementById("pic2").removeEventListener("click", event, true);
+  document.getElementById("pic3").removeEventListener("click", event, true);
+}

@@ -103,3 +103,5 @@ removeListeners = function() {
   document.getElementById("pic2").removeEventListener("click", event, true);
   document.getElementById("pic3").removeEventListener("click", event, true);
 }
+
+clickFocus();

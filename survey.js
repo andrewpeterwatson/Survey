@@ -82,9 +82,9 @@ function clickFocus() {
       console.log(newProducts[idx3].chosen);
       clickNum++;
       console.log(clickNum + " CN");
-      if (clickNum >= 15) {
+      if (clickNum > 14) {
+        console.log("true");
         gameOver = true;
-        document.getElementById("results").style.visibility = "visible";
       }
       if (!gameOver) {
         getRandomImage();
@@ -95,12 +95,25 @@ function clickFocus() {
     getRandomImage();
   }
 };
-if (gameOver === true) {
-  removeListeners();
-}
 removeListeners = function() {
   document.getElementById("pic1").removeEventListener("click", event, true);
   document.getElementById("pic2").removeEventListener("click", event, true);
   document.getElementById("pic3").removeEventListener("click", event, true);
   };
 clickFocus();
+Product.prototype.renderHeader =function() {
+  var resultTableEl = document.getElementById("resultTable");
+  var headEl = document.createElement("thead");
+  var headThEl = document.createElement("th");
+  headThEl.textContent = this.call;
+  headEl.appendChild(headThEl);
+  resultTableEl.appendChild(headEl);
+  var trEl = document.createElement("tr");
+  var tdEl = document.createElement("td");
+  tdEl.textContent = this.chosen;
+  trEl.appendChild(tdEl);
+  resultTableEl.appendChild(trEl);
+};
+
+  removeListeners();
+  document.getElementById("results").style.visibility = "visible";

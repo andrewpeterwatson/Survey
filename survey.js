@@ -38,7 +38,7 @@ function getRandomImage() {
 };
 
 function clickFocus() {
-  document.getElementById("results").style.visibility = "hidden";
+  document.getElementById("reset").style.visibility = "hidden";
   document.getElementById("pic1").addEventListener("click", function(){
     var choice = event.target.id;
     console.log(choice);
@@ -48,11 +48,11 @@ function clickFocus() {
       console.log(newProducts[idx1].chosen);
       clickNum++;
       console.log(clickNum + " CN");
-      if (clickNum === 15) {
+      if (clickNum > 14) {
         gameOver = true;
       }
-      if (!gameOver) {
-        getRandomImage();
+        if (!gameOver) {
+          getRandomImage();
       }
     }
   });
@@ -65,7 +65,7 @@ function clickFocus() {
       console.log(newProducts[idx2].chosen);
       clickNum++;
       console.log(clickNum + " CN");
-      if (clickNum === 15) {
+      if (clickNum > 14) {
         gameOver = true;
       }
       if (!gameOver) {
@@ -82,7 +82,7 @@ function clickFocus() {
       console.log(newProducts[idx3].chosen);
       clickNum++;
       console.log(clickNum + " CN");
-      if (clickNum > 14) {
+      if (clickNum === 15) {
         console.log("true");
         gameOver = true;
       }
@@ -101,19 +101,34 @@ removeListeners = function() {
   document.getElementById("pic3").removeEventListener("click", event, true);
   };
 clickFocus();
-Product.prototype.renderHeader =function() {
-  var resultTableEl = document.getElementById("resultTable");
-  var headEl = document.createElement("thead");
-  var headThEl = document.createElement("th");
-  headThEl.textContent = this.call;
-  headEl.appendChild(headThEl);
-  resultTableEl.appendChild(headEl);
-  var trEl = document.createElement("tr");
-  var tdEl = document.createElement("td");
-  tdEl.textContent = this.chosen;
-  trEl.appendChild(tdEl);
-  resultTableEl.appendChild(trEl);
-};
 
   removeListeners();
-  document.getElementById("results").style.visibility = "visible";
+  document.getElementById("reset").style.visibility = "visible";
+
+
+
+ var buildChart = {
+      data: {
+        labels: ["bag", "banana", "boots", "chair", "cthulhu", "dragon", "pen", "scissors", "shark", "sweep", "unicorn", "usb", "water_can", "wine"],
+        datasets: [
+          {
+              label: "Votes",
+              fillColor: "rgba(220,220,220,0.5)",
+              strokeColor: "rgba(220,220,220,0.8)",
+              highlightFill: "rgba(220,220,220,0.75)",
+              highlightStroke: "rgba(220,220,220,1)",
+              data: [],
+          },
+      ],
+  },
+};
+ var pushData = function() {
+    for (var prods in newProducts) {
+      var prodData = newProducts[prods].chosen;
+      buildChart.data.datasets[0].data.push(prodData);
+    }
+  var ctx = document.getElementById("myChart").getContext("2d");
+  var myNewChart = new Chart(ctx).Bar(buildChart.data);
+  var chart = document.getElementById('myChart');
+  chart.className = '';
+};

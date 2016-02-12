@@ -1,6 +1,37 @@
-.pics {
-  display: inline-flex;
-}
 img {
+  display: inline-block;
+  margin-left: 6%;
+  flex-grow: 1;
+}
+h1 {
+  margin-left: 37%;
+  display: inline-block;
+  font-family: sans-serif;
+  text-align: center;
+}
+canvas {
+  margin-left: 15%;
   display: flex;
+  position: absolute;
+}
+button {
+  font-family: sans-serif;
+  font-weight: lighter;
+  background-color: #365673;
+  color: white;
+  border-style: none;
+  height: 6em;
+  width: 16em;
+}
+#wdyl {
+  width: 60%;
+  height: 4em;
+  margin-left: 17%;
+  margin-bottom: 1em;
+  flex-grow: 1;
+  border-bottom: 1px solid black;
+
+}
+.space {
+  flex-grow: 2;
 }

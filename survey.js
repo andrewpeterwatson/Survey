@@ -14,8 +14,29 @@ populate = function() {
   for (calls in images) {
     newProducts.push(new Product(images[calls],this.call));
   }
+  localStorage.setItem('newProducts', JSON.stringify(newProducts));
 };
-populate();
+(function checkLocal() {
+  if (localStorage.chartData && localStorage.newProducts) {
+    data = JSON.parse(localStorage.chartData);
+    newProducts = JSON.parse(localStorage.getItem('newProducts'));
+  } else {
+    populate();
+    data = {
+      labels: ["bag", "banana", "boots", "chair", "cthulhu", "dragon", "pen", "scissors", "shark", "sweep", "unicorn", "usb", "water_can", "wine"],
+      datasets: [
+          {
+            label: "Votes",
+            fillColor: "rgba(223, 68, 80, 1)",
+            // strokeColor: "rgba(220,220,220,0.8)",
+            highlightFill: "rgba(220,220,220,0.75)",
+            highlightStroke: "rgba(220,220,220,1)",
+            data: []
+        }
+      ]
+    };
+  }
+})();
 var idx1 = 0;
 var idx2 = 0;
 var idx3 = 0;
@@ -38,16 +59,13 @@ function getRandomImage() {
 };
 
 function clickFocus() {
-  document.getElementById("reset").style.visibility = "hidden";
+  // document.getElementById("reset").style.visibility = "hidden";
   document.getElementById("pic1").addEventListener("click", function(){
     var choice = event.target.id;
-    console.log(choice);
     if (choice === "pic1") {
       var img = document.getElementById("pic1").getAttribute('src');
       newProducts[idx1].chosen += 1;
-      console.log(newProducts[idx1].chosen);
       clickNum++;
-      console.log(clickNum + " CN");
       if (clickNum > 14) {
         gameOver = true;
       }
@@ -58,13 +76,10 @@ function clickFocus() {
   });
   document.getElementById("pic2").addEventListener("click", function(){
     var choice = event.target.id;
-    console.log(choice);
     if (choice === "pic2") {
       var img = document.getElementById("pic2").getAttribute('src');
       newProducts[idx2].chosen += 1;
-      console.log(newProducts[idx2].chosen);
       clickNum++;
-      console.log(clickNum + " CN");
       if (clickNum > 14) {
         gameOver = true;
       }
@@ -75,15 +90,11 @@ function clickFocus() {
   });
   document.getElementById("pic3").addEventListener("click", function(){
     var choice = event.target.id;
-    console.log(choice);
     if (choice === "pic3") {
       var img = document.getElementById("pic3").getAttribute('src');
       newProducts[idx3].chosen += 1;
-      console.log(newProducts[idx3].chosen);
       clickNum++;
-      console.log(clickNum + " CN");
       if (clickNum === 15) {
-        console.log("true");
         gameOver = true;
       }
       if (!gameOver) {
@@ -94,6 +105,7 @@ function clickFocus() {
   if (!gameOver) {
     getRandomImage();
   }
+  console.log("reset happens here");
 };
 removeListeners = function() {
   document.getElementById("pic1").removeEventListener("click", event, true);
@@ -103,17 +115,14 @@ removeListeners = function() {
 clickFocus();
 
   removeListeners();
-  document.getElementById("reset").style.visibility = "visible";
-
-
-
+  // document.getElementById("reset").style.visibility = "visible";
  var buildChart = {
       data: {
         labels: ["bag", "banana", "boots", "chair", "cthulhu", "dragon", "pen", "scissors", "shark", "sweep", "unicorn", "usb", "water_can", "wine"],
         datasets: [
           {
               label: "Votes",
-              fillColor: "rgba(220,220,220,0.5)",
+              fillColor: "rgba(223, 68, 80, 1)",
               strokeColor: "rgba(220,220,220,0.8)",
               highlightFill: "rgba(220,220,220,0.75)",
               highlightStroke: "rgba(220,220,220,1)",
@@ -126,9 +135,15 @@ clickFocus();
     for (var prods in newProducts) {
       var prodData = newProducts[prods].chosen;
       buildChart.data.datasets[0].data.push(prodData);
+      localStorage.setItem('chartData', JSON.stringify(buildChart.data));
+      localStorage.setItem('newProducts', JSON.stringify(newProducts));
     }
   var ctx = document.getElementById("myChart").getContext("2d");
   var myNewChart = new Chart(ctx).Bar(buildChart.data);
   var chart = document.getElementById('myChart');
   chart.className = '';
 };
+resetPopulate = function() {
+    var resultWindow = document.getElementById('resultPage').className = 'hideMe';
+  // resultWindow.className = "";
+}

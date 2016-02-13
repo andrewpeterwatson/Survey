@@ -9,16 +9,17 @@
   </head>
   <body>
     <link rel="stylesheet" href="survey.css">
-    <section>
+    <section id="resultPage">
+      <button type="button" id="reset" >reset</button>
+      <section id='results'></section>
+      <canvas width="800" height="449px" id='myChart'></canvas>
+      <section id="resultTable"></section>
+    </section>
+    <section id="imgSec">
       <img class="pics" id="pic1" src="" name""/>
       <img class="pics" id="pic2" src="" name""/>
       <img class="pics" id="pic3" src="" name""/>
     </section>
-    <button type="button" id="reset" >Reset</button>
-    <section id='results'>
-   </section>
-    <section id="resultTable"></section>
-    <canvas width="800" height="500" id='myChart'></canvas>
     <script type='text/javascript' src="chart.js"></script>
     <script type="text/javascript" src="survey.js"></script>
   </body>

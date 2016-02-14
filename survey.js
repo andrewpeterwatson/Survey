@@ -16,7 +16,7 @@ populate = function() {
   }
   localStorage.setItem('newProducts', JSON.stringify(newProducts));
 };
-(function checkLocal() {
+checkLocal = function() {
   if (localStorage.chartData && localStorage.newProducts) {
     data = JSON.parse(localStorage.chartData);
     newProducts = JSON.parse(localStorage.getItem('newProducts'));
@@ -36,11 +36,21 @@ populate = function() {
       ]
     };
   }
-})();
+};
+checkLocal();
 var idx1 = 0;
 var idx2 = 0;
 var idx3 = 0;
 var gameOver = false;
+var resultWindow = document.getElementById('resultPage');
+resetPopulate = function() {
+  resultWindow.className = 'hideMe';
+}
+resetPopulate();
+showReset = function() {
+  resultWindow.className = "";
+  pushData();
+}
 
 function getRandomImage() {
   idx1 = Math.floor(Math.random() * newProducts.length);
@@ -57,7 +67,6 @@ function getRandomImage() {
   picEl2.setAttribute('src', img2.url);
   picEl3.setAttribute('src', img3.url);
 };
-
 function clickFocus() {
   // document.getElementById("reset").style.visibility = "hidden";
   document.getElementById("pic1").addEventListener("click", function(){
@@ -68,8 +77,8 @@ function clickFocus() {
       clickNum++;
       if (clickNum > 14) {
         gameOver = true;
-      }
-        if (!gameOver) {
+        showReset()
+      } else  {
           getRandomImage();
       }
     }
@@ -82,8 +91,8 @@ function clickFocus() {
       clickNum++;
       if (clickNum > 14) {
         gameOver = true;
-      }
-      if (!gameOver) {
+        showReset();
+      } else {
         getRandomImage();
       }
     }
@@ -94,10 +103,10 @@ function clickFocus() {
       var img = document.getElementById("pic3").getAttribute('src');
       newProducts[idx3].chosen += 1;
       clickNum++;
-      if (clickNum === 15) {
+      if (clickNum > 14) {
         gameOver = true;
-      }
-      if (!gameOver) {
+        showReset()
+      } else {
         getRandomImage();
       }
     }
@@ -105,17 +114,9 @@ function clickFocus() {
   if (!gameOver) {
     getRandomImage();
   }
-  console.log("reset happens here");
 };
-removeListeners = function() {
-  document.getElementById("pic1").removeEventListener("click", event, true);
-  document.getElementById("pic2").removeEventListener("click", event, true);
-  document.getElementById("pic3").removeEventListener("click", event, true);
-  };
 clickFocus();
 
-  removeListeners();
-  // document.getElementById("reset").style.visibility = "visible";
  var buildChart = {
       data: {
         labels: ["bag", "banana", "boots", "chair", "cthulhu", "dragon", "pen", "scissors", "shark", "sweep", "unicorn", "usb", "water_can", "wine"],
@@ -141,9 +142,8 @@ clickFocus();
   var ctx = document.getElementById("myChart").getContext("2d");
   var myNewChart = new Chart(ctx).Bar(buildChart.data);
   var chart = document.getElementById('myChart');
-  chart.className = '';
 };
-resetPopulate = function() {
-    var resultWindow = document.getElementById('resultPage').className = 'hideMe';
-  // resultWindow.className = "";
-}
+document.getElementById('reset').addEventListener("click", function() {
+  clickNum = 0;
+  resetPopulate();
+});

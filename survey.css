@@ -1,0 +1,6 @@
+.pics {
+  display: inline-flex;
+}
+img {
+  display: flex;
+}

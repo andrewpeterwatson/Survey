@@ -1,6 +1,57 @@
-.pics {
-  display: inline-flex;
-}
 img {
+  display: inline-block;
+  /*margin-left: 6%;*/
+  flex-grow: 1;
+}
+h1 {
+  margin-left: 37%;
+  display: inline-block;
+  font-family: sans-serif;
+  text-align: center;
+}
+canvas {
+  margin-left: 15%;
   display: flex;
+  position: absolute;
+}
+#resultPage {
+  position: absolute;
+  border: 1px dashed blue;
+  margin-top: -6%;
+  margin-left: .5%;
+  height: 31em;
+  width: 98%;
+  background-color: hsla(209, 36%, -7%, 0.75);;
+}
+button {
+  font-size: 2em;
+  font-family: sans-serif;
+  font-weight: 100;
+  background-color: #365673;
+  color: white;
+  border-style: none;
+  height: 9%;
+  width: 100%;
+  margin-top: 36%;
+  position: absolute;
+}
+#imgSec {
+  /*border: 1px dashed red;*/
+  width: 71.9%;
+  margin-left: 11.5%;
+}
+#wdyl {
+  width: 60%;
+  height: 4em;
+  margin-left: 17%;
+  margin-bottom: 1em;
+  flex-grow: 1;
+  border-bottom: 1px solid black;
+
+}
+.space {
+  flex-grow: 2;
+}
+.hideMe {
+  visibility: hidden;
 }

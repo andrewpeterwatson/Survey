@@ -3,16 +3,24 @@
   <head>
     <meta charset="utf-8">
     <title>BusMall Survey</title>
+    <section id="wdyl">
+      <h1>Which do you like?</h1>
+    </section>
+    <link rel="stylesheet" href="survey.css">
   </head>
   <body>
-    <link rel="stylesheet" href="survey.css">
-    <h1>Hello World</h1>
-    <section>
+    <section id="resultPage">
+      <button type="button" id="reset" >reset</button>
+      <section id='results'></section>
+      <canvas width="800" height="449px" id='myChart'></canvas>
+      <section id="resultTable"></section>
+    </section>
+    <section id="imgSec">
       <img class="pics" id="pic1" src="" name""/>
       <img class="pics" id="pic2" src="" name""/>
       <img class="pics" id="pic3" src="" name""/>
     </section>
-    <button type="button" id="results" name="Results" >Results</button>
+    <script type='text/javascript' src="chart.js"></script>
     <script type="text/javascript" src="survey.js"></script>
   </body>
 </html>

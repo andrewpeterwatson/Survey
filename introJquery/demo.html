@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <section>
+      <h1 calss="important">I'm the most important</h1>
+      <ul id="listItUp">
+        <li>List item 1</li>
+        <li>List item 2</li>
+        <li>List item3</li>
+      </ul>
+      <h1 class="important">Important #2</h1>
+      <p id=youShouldKnow>1st p tag</p>
+      <p id="toConsider">2nd p tag</p>
+    </section>
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.2.0.js"></script>
+    <script>
+    var $listelements = $("list");
+    var listText = $listelements;
+    console.log($("listText"));
+    $listelements.text("help");
+    $("#listItUp").append("<li>help</li>");
+
+
+    </script>
+  </body>
+</html>
